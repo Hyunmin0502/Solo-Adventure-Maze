@@ -5,7 +5,7 @@ public class RoomLoader {
     public static String[][] loadRoom(String filePath) throws IOException {
         Scanner scanner = new Scanner(new File(filePath));
 
-        // 첫 줄: 방 크기
+        // 1. First line: number of rows and columns
         String[] dims = scanner.nextLine().split(",");
         int rows = Integer.parseInt(dims[0].trim());
         int cols = Integer.parseInt(dims[1].trim());
@@ -13,9 +13,19 @@ public class RoomLoader {
         String[][] grid = new String[rows][cols];
 
         for (int i = 0; i < rows; i++) {
+            if (!scanner.hasNextLine()) {
+                throw new IOException("Insufficient number of rows: " + i + "/" + rows);
+            }
+
             String[] line = scanner.nextLine().split(",");
+
             for (int j = 0; j < cols; j++) {
-                grid[i][j] = line[j].trim();
+                if (j < line.length) {
+                    grid[i][j] = line[j].trim();
+                } else {
+                    // If columns are missing, fill with blank
+                    grid[i][j] = " ";
+                }
             }
         }
 

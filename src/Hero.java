@@ -13,7 +13,7 @@ public class Hero {
         return weapon == null ? "None" : weapon.getName();
     }
 
-    // 추후 기능을 위한 메서드들
+    // Methods for future functionalities
     public void heal(int amount) {
         hp = Math.min(hp + amount, maxHp);
     }
